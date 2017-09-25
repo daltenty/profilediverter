@@ -1,5 +1,5 @@
 #!/bin/bash
-REDIR_NAME=jetb-$USER
+REDIR_NAME=profdiv-$USER
 REDIR_PATH=$HOME/.local/share/JetBrains/Toolbox/apps
 mkdir $REDIR_PATH
 if [ ! -L $REDIR_PATH ]; then

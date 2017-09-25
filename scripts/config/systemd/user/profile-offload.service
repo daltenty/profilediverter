@@ -3,7 +3,7 @@ Description=Move unneeded profile files
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c '~/.local/share/move-jetb.sh'
+ExecStart=/bin/sh -c '~/.local/share/profdiv.sh'
 
 [Install]
 WantedBy=default.target
