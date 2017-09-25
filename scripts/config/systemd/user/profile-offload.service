@@ -1,0 +1,9 @@
+[Unit]
+Description=Move unneeded profile files
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '~/.local/share/move-jetb.sh'
+
+[Install]
+WantedBy=default.target
