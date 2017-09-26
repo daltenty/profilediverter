@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Profile Diverter - SystemD service to move large files out of the users homedir 
 # Copyright (C) 2017 David Tenty
 
@@ -14,17 +14,31 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-REDIR_NAME=profdiv-$USER
-REDIR_PATH=$HOME/.local/share/JetBrains/Toolbox/apps
-mkdir -p $REDIR_PATH
-if [ ! -L $REDIR_PATH ]; then
-	echo "Moving jetb toolbox app dir"
-	mv $REDIR_PATH /tmp/$REDIR_NAME
-	ln -s /tmp/$REDIR_NAME $REDIR_PATH
-else
-	echo "Already moved, making sure local dir exists"
-	if [ ! -e /tmp/$REDIR_NAME ]; then
-		echo "Making local dir"	
-		mkdir /tmp/$REDIR_NAME
-	fi
+
+echo "Begining install..."
+if [ $(uname) != "Linux" ]; then
+    echo "OS is not Linux... bailing out"
+    exit 1
 fi
+
+echo "Running on $(lsb_release -a)"
+
+echo "Copying files..."
+mkdir -p  ~/.config/systemd/user
+cp ./config/systemd/user/profile-offload.service ~/.config/systemd/user
+mkdir -p ~/.local/share/
+cp ./local/share/profdiv.sh ~/.local/share
+
+if [ -d "./bin" ]; then 
+echo "Copying binaries..."
+    if [ ! -d ~/bin ]; then
+        mkdir ~/bin
+    fi
+    cp -r ./bin/* ~/bin/
+fi
+
+echo "Enabling and starting service"
+systemctl --user enable profile-offload
+systemctl --user start profile-offload
+
+echo "Done!"

@@ -1,5 +1,5 @@
 [Unit]
-Description=Move unneeded profile files
+Description=Move large profile files off home directory
 
 [Service]
 Type=oneshot

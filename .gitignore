@@ -1,7 +1,8 @@
 # ignore our output binaries
-task3
-task4
-task5
+install-offloader.sh
+
+# ignore packed binaries
+scripts/bin/
 
 # cmake ignore
 CMakeCache.txt
